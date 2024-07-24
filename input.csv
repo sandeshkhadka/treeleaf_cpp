@@ -1,0 +1,6 @@
+id,name,date_birth,roll_no,department,address
+1,John Doe,1998-05-15,101,Computer Science,"123 Main St, Kathmandu"
+2,Jane Smith,1999-08-22,102,Mathematics,"456 Elm St, Kathmandu"
+3,Alex Johnson,2000-02-18,103,Physics,"789 Maple St, Kathmandu"
+4,Emily Davis,1997-11-30,104,Chemistry,"321 Oak St, Kathmandu"
+5,Michael Brown,1998-09-12,105,Biology,"654 Pine St, Kathmandu"
