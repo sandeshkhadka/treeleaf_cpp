@@ -257,6 +257,13 @@ int main(int argc, char **argv) {
   // If cli args are passed then use them as:
   // csvsort FILENAME SORTBY
   // eg: csvsort input.csv age
+  if (argc == 2) {
+    std::string opt = argv[1];
+    if (opt == "help" || opt == "-h") {
+      PrintHelp();
+      return 0;
+    }
+  }
   if (argc > 2) {
     filename = argv[1];
     std::string sort_opt = argv[2];
@@ -280,7 +287,8 @@ int main(int argc, char **argv) {
   }
 
   if (SortOption < 1 || SortOption > 3) {
-    std::cout << "Invalid Choice!";
+    std::cout << "Invalid Choice!" << std::endl;
+    PrintHelp();
     return 1;
   }
   CSVFile file = CSVFile(filename);
@@ -299,5 +307,19 @@ int main(int argc, char **argv) {
 }
 
 void PrintHelp() {
-  // TODO: Complete this
+  std::cout << "Usage: csvsort FILENAME SORTBY" << std::endl;
+  std::cout << "Sorts a CSV file containing student information by age or name."
+            << std::endl;
+  std::cout << std::endl;
+  std::cout << "Arguments:" << std::endl;
+  std::cout << "  FILENAME   The name of the CSV file to be sorted."
+            << std::endl;
+  std::cout
+      << "  SORTBY     The sorting criteria. Can be 'age', 'name', or 'both'."
+      << std::endl;
+  std::cout << std::endl;
+  std::cout << "Example:" << std::endl;
+  std::cout << "  csvsort input.csv age" << std::endl;
+  std::cout << "  csvsort input.csv name" << std::endl;
+  std::cout << "  csvsort input.csv both" << std::endl;
 }
