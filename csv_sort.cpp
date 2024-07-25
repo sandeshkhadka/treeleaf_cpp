@@ -122,13 +122,21 @@ private:
     QuickSort(j + 1, ub, option);
   }
 
+  /*
+   * Quick Sort Partitoner Algorithm
+   * sorts the pivot to it's place and returns it's position in sorted list
+   */
   int Partitoner(int lb, int ub, SortBy option) {
     int left_cursor, right_cursor;
     Student temp, pivot;
     left_cursor = lb;
     right_cursor = ub;
+
+    // using first element in the list as pivot
     pivot = m_Rows[lb];
+
     bool ShouldIncrementLeftCursor, ShouldDecrementRightCursor;
+
     while (left_cursor < right_cursor) {
       if (option == SortByAge) {
         ShouldIncrementLeftCursor =
@@ -157,6 +165,7 @@ private:
               left_cursor < ub;
         }
       }
+
       while (ShouldDecrementRightCursor) {
         right_cursor--;
 
@@ -170,6 +179,7 @@ private:
               right_cursor > lb;
         }
       }
+
       if (left_cursor < right_cursor) {
         temp = m_Rows[left_cursor];
         m_Rows[left_cursor] = m_Rows[right_cursor];
@@ -189,6 +199,7 @@ public:
     std::getline(m_InputStream, line);
     line.clear();
 
+    // reading all rows from the CSV
     while (std::getline(m_InputStream, line)) {
       m_Rows.push_back(Student(line));
     }
@@ -201,19 +212,33 @@ public:
     }
   }
 
+  /*
+   * Writes all the contents of m_Rows in file filename
+   */
   void Export(std::string filename) {
     std::ofstream OutputStream;
     OutputStream.open(filename);
+    // writing column headers for CSV
     const std::string header = "id,name,date_birth,roll_no,department,address";
     OutputStream << header << std::endl;
+
     for (const Student std : m_Rows) {
       OutputStream << std.GetId() << "," << std.GetName() << "," << std.GetDOB()
                    << "," << std.GetRoll() << "," << std.GetDepartment() << ","
                    << std.GetAddress() << std::endl;
     }
+
     OutputStream.close();
   }
+  /*
+   * Sorts the contents of m_Rows based on option.
+   * option can be either of SortByAge or SortByName
+   */
   void Sort(SortBy option) { QuickSort(0, m_Size - 1, option); }
+
+  /*
+   * Prints the CSVFile to the console
+   */
   void Print() {
     const std::string header = "id,name,date_birth,roll_no,department,address";
     std::cout << header << std::endl;
@@ -222,6 +247,8 @@ public:
     }
   }
 };
+
+void PrintHelp();
 
 int main(int argc, char **argv) {
   std::string filename;
@@ -241,6 +268,7 @@ int main(int argc, char **argv) {
       SortOption = 3;
     }
   } else {
+    // Prompt for input if no cli args are passed
     std::cout << "Enter input file: ";
     std::cin >> filename;
     std::cout << "Sort by: " << std::endl;
@@ -250,6 +278,7 @@ int main(int argc, char **argv) {
     std::cout << "Choice(1-3): ";
     std::cin >> SortOption;
   }
+
   if (SortOption < 1 || SortOption > 3) {
     std::cout << "Invalid Choice!";
     return 1;
@@ -267,4 +296,8 @@ int main(int argc, char **argv) {
   }
 
   return 0;
+}
+
+void PrintHelp() {
+  // TODO: Complete this
 }
